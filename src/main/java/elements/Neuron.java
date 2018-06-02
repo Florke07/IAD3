@@ -54,4 +54,5 @@ class Neuron {
             adderResult += (1 * biasWeight);
         }
     }
+
 }
