@@ -8,19 +8,33 @@ import java.util.Random;
 public class RadialNeuron {
     private double distance = 0;
     public double scalingRate;
-    public double weightX;
-    public double weightY;
-    public ActivationFunction fun;
+    public ArrayList<Double> weights;
 
-    public RadialNeuron(double weightX, double weightY, ActivationFunction fun) {
-        this.weightX = weightX;
-        this.weightY = weightY;
-        this.fun = fun;
+
+    public RadialNeuron(ArrayList<Double> weights) {
+        this.weights = weights;
         Random rng = new Random();
         scalingRate = rng.nextDouble();
     }
     double distanceToInputVector(ArrayList<Double> in) {
-        distance = Math.sqrt(Math.pow(weightX-in.get(0),2)+Math.pow(weightY-in.get(1),2));
-        return distance;
+        if(in.size() == weights.size()) {
+            distance = 0;
+            for (int i = 0; i < weights.size(); i++) {
+                distance += Math.pow(weights.get(i) - in.get(i), 2);
+            }
+            distance = Math.sqrt(distance);
+            return distance;
+        }else {
+            System.out.println("Rozmiar wektora wejsciowego rozny od rozmiaru wektora wag");
+            return 0;
+        }
+    }
+    double distanceToOtherNeuron(RadialNeuron n) {
+        double tmp = 0;
+        for (int i = 0; i < weights.size(); i++) {
+            tmp += Math.pow(weights.get(i) - n.weights.get(i), 2);
+        }
+        tmp = Math.sqrt(tmp);
+        return tmp;
     }
 }

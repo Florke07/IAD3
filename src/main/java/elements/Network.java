@@ -34,22 +34,22 @@ public class Network {
 
         for (int i=0;i<numberOfNeuronsOnHiddenLayers;i++){
             for (int j=0;j<numberOfInputs;j++){
-                hiddenLayer.neuron[i].input[j] = inputs[j];
+                //hiddenLayer.neurons[i].input[j] = AllInputs[j];
             }
         }
-        hiddenLayer.output();
+        //hiddenLayer.output();
 
 
         for (int i=0;i<numberOfOutputs;i++){
             for (int j=0;j<numberOfNeuronsOnHiddenLayers;j++){
-                outputLayer.neuron[i].input[j] = hiddenLayer.neuron[j].neuronResult;
+                //outputLayer.neurons[i].input[j] = hiddenLayer.neurons[j].neuronResult;
             }
         }
-        outputLayer.output();
+        //outputLayer.output();
 
 
         for (int i=0;i<numberOfOutputs;i++){
-            out[i] = outputLayer.neuron[i].neuronResult;
+            out[i] = outputLayer.neurons[i].neuronResult;
         }
 
         return out;
@@ -63,18 +63,18 @@ public class Network {
 
 
         for (int i=0;i<numberOfOutputs;i++){
-            outputLayerError[i] = fun.Derivative(outputLayer.neuron[i].adderResult) * (expectedOutput[i] - currentOutputForNetwork[i]);
+            outputLayerError[i] = fun.Derivative(outputLayer.neurons[i].adderResult) * (expectedOutput[i] - currentOutputForNetwork[i]);
         }
 
         double temp=0;
         for (int i=0;i<numberOfNeuronsOnHiddenLayers;i++){
             temp=0;
             for (int j=0;j<numberOfOutputs;j++){
-                temp += outputLayerError[j]*outputLayer.neuron[j].weight[i];
+                temp += outputLayerError[j]*outputLayer.neurons[j].weight[i];
 
             }
-            //if (isBias) temp += outputLayerError[i] * outputLayer.neuron[i].biasWeight;
-            hiddenLayerError[i] = fun.Derivative(hiddenLayer.neuron[i].adderResult) * temp;
+            //if (isBias) temp += outputLayerError[i] * outputLayer.neurons[i].biasWeight;
+            hiddenLayerError[i] = fun.Derivative(hiddenLayer.neurons[i].adderResult) * temp;
         }
 
         double squaredError=0;
@@ -88,16 +88,16 @@ public class Network {
 
         for (int i=0;i<numberOfOutputs;i++){
             for (int j=0;j<numberOfNeuronsOnHiddenLayers;j++){
-                delta = (learningRate * outputLayerError[i] * outputLayer.neuron[i].input[j]) + (momentumRate * outputLayer.neuron[i].previusInputDelta[j]);
-                outputLayer.neuron[i].weight[j] += delta;
-                outputLayer.neuron[i].previusInputDelta[j] = delta;
+                //delta = (learningRate * outputLayerError[i] * outputLayer.neurons[i].input[j]) + (momentumRate * outputLayer.neurons[i].previusInputDelta[j]);
+                outputLayer.neurons[i].weight[j] += delta;
+                outputLayer.neurons[i].previusInputDelta[j] = delta;
 
             }
 
             if (isBias) {
-                delta = ((learningRate * outputLayerError[i]) + (momentumRate * outputLayer.neuron[i].prevuisBiasDelta));
-                outputLayer.neuron[i].biasWeight += delta;
-                outputLayer.neuron[i].prevuisBiasDelta = delta;
+                delta = ((learningRate * outputLayerError[i]) + (momentumRate * outputLayer.neurons[i].prevuisBiasDelta));
+                outputLayer.neurons[i].biasWeight += delta;
+                outputLayer.neurons[i].prevuisBiasDelta = delta;
             }
         }
 
@@ -105,16 +105,16 @@ public class Network {
 
         for (int i=0;i<numberOfNeuronsOnHiddenLayers;i++){
             for (int j=0;j<numberOfInputs;j++){
-                delta = (learningRate * hiddenLayerError[i] * hiddenLayer.neuron[i].input[j]) + (momentumRate * hiddenLayer.neuron[i].previusInputDelta[j]);
-                hiddenLayer.neuron[i].weight[j] += delta;
-                hiddenLayer.neuron[i].previusInputDelta[j] = delta;
+                //delta = (learningRate * hiddenLayerError[i] * hiddenLayer.neurons[i].input[j]) + (momentumRate * hiddenLayer.neurons[i].previusInputDelta[j]);
+                hiddenLayer.neurons[i].weight[j] += delta;
+                hiddenLayer.neurons[i].previusInputDelta[j] = delta;
             }
 
             if (isBias) {
-                delta = ((learningRate * hiddenLayerError[i]) + (momentumRate * hiddenLayer.neuron[i].prevuisBiasDelta));
-                hiddenLayer.neuron[i].biasWeight += delta;
+                delta = ((learningRate * hiddenLayerError[i]) + (momentumRate * hiddenLayer.neurons[i].prevuisBiasDelta));
+                hiddenLayer.neurons[i].biasWeight += delta;
 
-                hiddenLayer.neuron[i].prevuisBiasDelta = delta;
+                hiddenLayer.neurons[i].prevuisBiasDelta = delta;
             } else {
                 //
             }

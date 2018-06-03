@@ -1,38 +1,41 @@
 package elements;
 
-import activationFunctions.ActivationFunction;
-
 import java.util.ArrayList;
 import java.util.Random;
 
 public class RadialLayer {
     public int numberOfNeurons;
+    int sizeOfInputVector;
     private double lambda;
-    public ActivationFunction fun;
-    public ArrayList<Double> inputs;
-    public ArrayList<Double> outputs;
-    public ArrayList<RadialNeuron> radialNeurons;
+    public ArrayList<Double> AllInputs;
+    public ArrayList<Double> lastOutput = new ArrayList<>();
+    public ArrayList<RadialNeuron> radialNeurons = new ArrayList<>();
 
-    public RadialLayer(int numberOfNeurons, ActivationFunction fun, ArrayList<Double> inputs) {
+    public RadialLayer(int numberOfNeurons, ArrayList<Double> AllInputs, int sizeOfInputVector) {
         Random rng = new Random();
-        int posX;
-        int posY;
+        this.sizeOfInputVector = sizeOfInputVector;
+        ArrayList<Double> weightsForRadialNeurons = new ArrayList<>();
         this.numberOfNeurons = numberOfNeurons;
-        this.fun = fun;
-        this.inputs = inputs;
+        this.AllInputs = AllInputs;
         for(int i = 0;i < numberOfNeurons; i++){
-            posX = (rng.nextInt(inputs.size()/2))*2;
-            posY = posX+1;
-            radialNeurons.add(new RadialNeuron(inputs.get(posX),inputs.get(posY),fun));
+            weightsForRadialNeurons.clear();
+            for(int j = 0; j < sizeOfInputVector;j++){
+                weightsForRadialNeurons.add(AllInputs.get((rng.nextInt(AllInputs.size()/(sizeOfInputVector+1)))));
+            }
+            radialNeurons.add(new RadialNeuron(weightsForRadialNeurons));
         }
+
     }
     private double gaussFunction(double x){
-        return ((-Math.pow(x,2))/(2*Math.pow(lambda,2)));
+        return Math.exp((-Math.pow(x,2))/(2*Math.pow(lambda,2)));
     }
-    public void feedForward (ArrayList<Double> in){
-        for (RadialNeuron i:radialNeurons
-             ) {
-            outputs.add(gaussFunction(i.distanceToInputVector(in)*i.scalingRate));
+    public ArrayList<Double> feedForward (ArrayList<Double> in){
+        lastOutput.clear();
+        for (RadialNeuron i:radialNeurons) {
+            lastOutput.add(gaussFunction(i.distanceToInputVector(in)*i.scalingRate));
+            //System.out.println(gaussFunction(i.distanceToInputVector(in)*i.scalingRate));
+            //System.out.println(i.distanceToInputVector(in)*i.scalingRate);
         }
+        return lastOutput;
     }
 }
