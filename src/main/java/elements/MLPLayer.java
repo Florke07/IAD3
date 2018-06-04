@@ -9,7 +9,7 @@ public class MLPLayer {
     ArrayList<Double> lastOutput = new ArrayList<>();
     int numberOfInputs;
     int numberOfOutputs;
-    double learningRate = 0.7;
+    double learningRate = 0.02;
     RadialLayer radialLayer;
     ActivationFunction fun;
 

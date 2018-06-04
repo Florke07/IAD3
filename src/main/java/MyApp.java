@@ -25,7 +25,7 @@ public class MyApp {
             k++;
         }
        // DrawPlot.draw(funkcja);
-        RBFNetwork RBF = new RBFNetwork(list,10,1,1);
+        RBFNetwork RBF = new RBFNetwork(list,50,1,1);
         for (int o=0;o<10;o++) {
             for (int i = 0; i < list.size(); i += 2) {
 
@@ -37,7 +37,7 @@ public class MyApp {
                 out = RBF.feedForward(in);
 
                 System.out.println("Przed learnem");
-                for (Double j : in) {
+                for (Double j : out) {
                     System.out.println(j);
                 }
 
