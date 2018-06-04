@@ -6,7 +6,7 @@ import java.util.Random;
 public class RadialLayer {
     public int numberOfNeurons;
     int sizeOfInputVector;
-    private double lambda;
+    private double lambda=1;
     public ArrayList<Double> AllInputs;
     public ArrayList<Double> lastOutput = new ArrayList<>();
     public ArrayList<RadialNeuron> radialNeurons = new ArrayList<>();

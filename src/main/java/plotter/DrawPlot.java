@@ -6,7 +6,7 @@ import com.panayotis.gnuplot.style.PlotStyle;
 import com.panayotis.gnuplot.style.Style;
 
 public class DrawPlot {
-    /*public static void draw(double[][] args1, double[][] args2, double[][] args3, double[][] args4, int EPOKI) {
+    public static void draw(double[][] args1, double[][] args2, double[][] args3, double[][] args4, int EPOKI) {
         JavaPlot p = new JavaPlot();
         DataSetPlot s1 = new DataSetPlot(args1);
         p.addPlot(s1);
@@ -20,7 +20,7 @@ public class DrawPlot {
         p.getAxis("x").setBoundaries(0, EPOKI);
         p.getAxis("y").setBoundaries(0, 0.6);
         p.plot();
-    }*/
+    }
 
     public static void draw(double[][] args1, double[][] args2) {
         JavaPlot p = new JavaPlot();
@@ -42,16 +42,16 @@ public class DrawPlot {
         p.plot();
     }
 
-/*
-    public static void draw(double[][] args1, int EPOKI) {
+
+    public static void draw(double[][] args1) {
         JavaPlot p = new JavaPlot();
         DataSetPlot s1 = new DataSetPlot(args1);
         p.addPlot(s1);
         p.set("grid", "");
-        p.getAxis("x").setBoundaries(-50, 50);
-        p.getAxis("y").setBoundaries(-50, 50);
+        //p.getAxis("x").setBoundaries(-50, 50);
+        //p.getAxis("y").setBoundaries(-50, 50);
         p.plot();
-    }*/
+    }
 
     public static void draw(double[][] args1, double[][] args2, double[][] args3) {
         JavaPlot p = new JavaPlot();
