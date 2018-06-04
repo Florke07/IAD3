@@ -27,4 +27,8 @@ public class RBFNetwork {
         lastOutput = mlpLayer.feedForward(tmp);
         return lastOutput;
     }
+    public void learn(ArrayList<Double> in,ArrayList<Double> expectedOutput){
+        ArrayList<Double> tmp = radialLayer.feedForward(in);
+        mlpLayer.learn(tmp,expectedOutput);
+    }
 }

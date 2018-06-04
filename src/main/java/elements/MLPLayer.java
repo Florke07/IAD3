@@ -9,6 +9,7 @@ public class MLPLayer {
     ArrayList<Double> lastOutput = new ArrayList<>();
     int numberOfInputs;
     int numberOfOutputs;
+    double learningRate = 0.7;
     RadialLayer radialLayer;
     ActivationFunction fun;
 
@@ -28,20 +29,20 @@ public class MLPLayer {
         }
         return lastOutput;
     }
-    public void calculatingWeightsBasedOnTrainingData (ArrayList<Double> AllIn){
-        Double[][] vektorOmega = new Double[numberOfInputs][AllIn.size()/2];
-        ArrayList<Double> singleIn = new ArrayList<>();
-        ArrayList<Double> outForSingleIn;
-        int k = 0;
-        for(int i = 0; i < AllIn.size(); i+=2){
-            singleIn.clear();
-            singleIn.add(AllIn.get(i));
-            singleIn.add(AllIn.get(i+1));
-            outForSingleIn = radialLayer.feedForward(singleIn);
-            for(int j = 0; j < outForSingleIn.size();j++){
-                vektorOmega[k][j] = outForSingleIn.get(j);
+    public void learn(ArrayList<Double> in,ArrayList<Double> expectedOutput){
+        feedForward(in);
+        ArrayList<Double> error = new ArrayList<>();
+        for(int i =0; i < expectedOutput.size();i++){
+            error.clear();
+            for(int j =0;j < numberOfInputs+1;j++){
+                if(j<numberOfInputs) {
+                    error.add((lastOutput.get(i) - expectedOutput.get(i)) * in.get(j));
+                    mlpNeurons.get(i).weights.set(j, mlpNeurons.get(i).weights.get(j) - (learningRate * error.get(j)));
+                }else {
+                    error.add((lastOutput.get(i) - expectedOutput.get(i)));
+                    mlpNeurons.get(i).weights.set(j, mlpNeurons.get(i).weights.get(j) - (learningRate * error.get(j)));
+                }
             }
-            k++;
         }
 
     }
