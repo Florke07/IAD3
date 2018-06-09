@@ -11,7 +11,7 @@ public class RadialLayer {
     public double lambdaMin;
     public int wiek = 0;
     private int wiekMax;
-    private double scalingRate=0.2;
+    private double scalingRate=0.1;
     private double promienFunkcjiGaussowskiej =0.3;
     public ArrayList<Double> AllInputs;
     public ArrayList<Double> lastOutput = new ArrayList<>();

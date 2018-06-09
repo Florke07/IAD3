@@ -79,6 +79,7 @@ public class MyApp {
         int k=0;
         DecimalFormat df = new DecimalFormat("0.0000");
         DecimalFormat df2 = new DecimalFormat("0.00000000");
+        double srBld=0;
         for (int i=0;i<testData.size();i+=5) {
             in.clear();
             in.add(testData.get(i));
@@ -91,6 +92,7 @@ public class MyApp {
             double d3 = Math.abs(testData.get(i+4)-out.get(0));
             double d4 = (d3/d2)*100;
             System.out.print("Oczekiwano: "+d1+"   Otrzymano: "+df2.format(d2)+ "     Błąd: "+df.format(d3)+"   "+df.format(d4)+"%\n");
+            srBld+=d3;
             //System.out.println("Otrzymano: "+out.get(0));
             oczekiwana[k][0]=k;
             oczekiwana[k][1]=testData.get(i+4);
@@ -98,6 +100,8 @@ public class MyApp {
             otrzymana[k][0]=k;
             k++;
         }
+        srBld/=93;
+        System.out.println("średni błąd: "+srBld);
         DrawPlot.draw(oczekiwana,otrzymana);
     }
 }
