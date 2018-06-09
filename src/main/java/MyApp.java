@@ -3,6 +3,7 @@ import plotter.DrawPlot;
 import reader.ReadData;
 import reader.ReadFromTXTWindows;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class MyApp {
@@ -17,27 +18,22 @@ public class MyApp {
         ArrayList<Double> exp = new ArrayList<>();
         ArrayList<Double> out = new ArrayList<>();
 
-        double[][] funkcja = new double[1000][2];
-        double[][] wynik = new double[1000][2];
-        int k=0;
-        for (int i =0;i<testData.size();i+=2) {
-            funkcja[k][0] = testData.get(i);
-            funkcja[k][1] = testData.get(i+1);
-            k++;
-        }
-        // DrawPlot.draw(funkcja);
+        double[][] oczekiwana = new double[93][2];
+        double[][] otrzymana = new double[93][2];
+
         int iloscEpokR=100;
-        int iloscEpokMLP = 1000;
-        RBFNetwork RBF = new RBFNetwork(list,20,1,1,iloscEpokR);
-        int g;
+        int iloscEpokMLP = 100;
+        RBFNetwork RBF = new RBFNetwork(list,5,1,4,iloscEpokR);
         for (int o=0;o<iloscEpokR;o++) {
-            g=0;
-            for (int i = 0; i < list.size(); i += 2) {
+            for (int i = 0; i < list.size(); i += 5) {
 
                 in.clear();
                 exp.clear();
                 in.add(list.get(i));
-                exp.add(list.get(i + 1));
+                in.add(list.get(i+1));
+                in.add(list.get(i+2));
+                in.add(list.get(i+3));
+                exp.add(list.get(i + 4));
 
                 //out = RBF.feedForward(in);
 
@@ -66,27 +62,38 @@ public class MyApp {
             RBF.radialLayer.wiek++;
         }
         for(int e =0;e<iloscEpokMLP;e++){
-            for (int i = 0; i < list.size(); i += 2) {
+            for (int i = 0; i < list.size(); i += 5) {
 
                 in.clear();
                 exp.clear();
                 in.add(list.get(i));
-                exp.add(list.get(i + 1));
+                in.add(list.get(i+1));
+                in.add(list.get(i+2));
+                in.add(list.get(i+3));
+                exp.add(list.get(i + 4));
                 RBF.learnMLPLayer(in,exp);
             }
         }
 
 
-        g=0;
-        for (int i=0;i<testData.size();i+=2) {
+        int k=0;
+        DecimalFormat df = new DecimalFormat("0.0000");
+        DecimalFormat df2 = new DecimalFormat("0.00000000");
+        for (int i=0;i<testData.size();i+=5) {
             in.clear();
             in.add(testData.get(i));
+            in.add(testData.get(i+1));
+            in.add(testData.get(i+2));
+            in.add(testData.get(i+3));
             out = RBF.feedForward(in);
-
-            wynik[g][0]=in.get(0);
-            wynik[g][1]=out.get(0);
-            g++;
+            System.out.print("Oczekiwano: "+testData.get(i+4)+"   Otrzymano: "+df2.format(out.get(0))+ "     Błąd: "+df.format(Math.abs(testData.get(i+4)-out.get(0)))+"\n");
+            //System.out.println("Otrzymano: "+out.get(0));
+            oczekiwana[k][0]=k;
+            oczekiwana[k][1]=testData.get(i+4);
+            otrzymana[k][1]=out.get(0);
+            otrzymana[k][0]=k;
+            k++;
         }
-        DrawPlot.draw(funkcja,wynik);
+        DrawPlot.draw(oczekiwana,otrzymana);
     }
 }
