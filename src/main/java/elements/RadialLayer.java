@@ -53,8 +53,8 @@ public class RadialLayer {
                 i.weights.set(j, (i.weights.get(j) + learningRateOdWieku(i) * funkcjaSasiedztwa(i) * (in.get(j) - i.weights.get(j))));
             }
         }
+        wiek++;
         return feedForward(in);
-
     }
 
     private double funkcjaSasiedztwa(RadialNeuron n) {

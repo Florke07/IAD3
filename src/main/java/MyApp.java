@@ -26,7 +26,7 @@ public class MyApp {
             k++;
         }
        // DrawPlot.draw(funkcja);
-        RBFNetwork RBF = new RBFNetwork(list,20,1,1);
+        RBFNetwork RBF = new RBFNetwork(list,20,1,1,200);
         int g;
         for (int o=0;o<200;o++) {
             g=0;
