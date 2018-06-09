@@ -11,27 +11,28 @@ public class RadialLayer {
     public double lambdaMin;
     public int wiek = 0;
     private int wiekMax;
-    private double promienFunkcjiGaussowskiej =1;
+    private double promienFunkcjiGaussowskiej =0.1;
     public ArrayList<Double> AllInputs;
     public ArrayList<Double> lastOutput = new ArrayList<>();
     public ArrayList<RadialNeuron> radialNeurons = new ArrayList<>();
 
     public RadialLayer(int numberOfNeurons, ArrayList<Double> AllInputs, int sizeOfInputVector,int iloscEpok) {
         Random rng = new Random();
-        lambdaMax = numberOfNeurons / 2;
-        lambdaMin = 0.01;
+
         this.sizeOfInputVector = sizeOfInputVector;
-        ArrayList<Double> weightsForRadialNeurons = new ArrayList<>();
+        ArrayList<Double> weightsForRadialNeurons;
         this.numberOfNeurons = numberOfNeurons;
         this.AllInputs = AllInputs;
         wiekMax = iloscEpok;
         for(int i = 0;i < numberOfNeurons; i++){
-            weightsForRadialNeurons.clear();
+            weightsForRadialNeurons = new ArrayList<Double>();
             for(int j = 0; j < sizeOfInputVector;j++){
                 weightsForRadialNeurons.add(AllInputs.get((rng.nextInt(AllInputs.size()/(sizeOfInputVector+1)))));
             }
             radialNeurons.add(new RadialNeuron(weightsForRadialNeurons));
         }
+        lambdaMax = numberOfNeurons / 2;
+        lambdaMin = 0.01;
 
     }
     private double gaussFunction(double x){
@@ -53,14 +54,13 @@ public class RadialLayer {
         Collections.sort(radialNeurons);
     }
 
-    public ArrayList<Double> learnRadialLayer(ArrayList<Double> in) {
+    public void learnRadialLayer(ArrayList<Double> in) {
         sort(in);
         for (RadialNeuron i : radialNeurons) {
             for (int j = 0; j < sizeOfInputVector; j++) {
                 i.weights.set(j, (i.weights.get(j) + learningRateOdWieku(i) * funkcjaSasiedztwa(i) * (in.get(j) - i.weights.get(j))));
             }
         }
-        return feedForward(in);
     }
 
     private double funkcjaSasiedztwa(RadialNeuron n) {

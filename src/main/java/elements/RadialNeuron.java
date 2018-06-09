@@ -10,7 +10,7 @@ public class RadialNeuron implements Comparable<RadialNeuron>{
     public double scalingRate;
     public double learningRateMax = 0.5;
     public double learningRate = 0.5;
-    public double learningRateMin = 0.1;
+    public double learningRateMin = 0.03;
     public ArrayList<Double> weights;
 
 
