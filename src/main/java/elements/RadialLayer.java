@@ -1,9 +1,8 @@
 package elements;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
-
-import static java.util.Collections.sort;
 
 public class RadialLayer {
     public int numberOfNeurons;
@@ -47,6 +46,12 @@ public class RadialLayer {
         }
         return lastOutput;
     }
+    private void sort(ArrayList<Double> in) {
+        for (RadialNeuron i : radialNeurons) {
+            i.distanceToInputVector(in);
+        }
+        Collections.sort(radialNeurons);
+    }
 
     public ArrayList<Double> learnRadialLayer(ArrayList<Double> in) {
         sort(in);
@@ -60,18 +65,18 @@ public class RadialLayer {
 
     private double funkcjaSasiedztwa(RadialNeuron n) {
         double tmp = Math.exp(-radialNeurons.indexOf(n) / lambdaOdWieku());
-        System.out.println("Som:"+tmp);
+        //System.out.println("Som:"+tmp);
         return tmp;
     }
 
     private double lambdaOdWieku() {
-        System.out.println("lambda:"+(lambdaMax * Math.pow((lambdaMin / lambdaMax), ((double) wiek / (double) wiekMax))));
+        //System.out.println("lambda:"+(lambdaMax * Math.pow((lambdaMin / lambdaMax), ((double) wiek / (double) wiekMax))));
         return lambdaMax * Math.pow((lambdaMin / lambdaMax), ((double) wiek / (double) wiekMax));
     }
 
     private double learningRateOdWieku(RadialNeuron n) {
         n.learningRate = n.learningRateMax * Math.pow((n.learningRateMin / n.learningRate), ((double) wiek / (double) wiekMax));
-        System.out.println("LearningRAte:"+n.learningRate);
+        //System.out.println("LearningRAte:"+n.learningRate);
         return n.learningRate;
     }
 
