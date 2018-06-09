@@ -17,7 +17,7 @@ public class RadialNeuron implements Comparable<RadialNeuron>{
     public RadialNeuron(ArrayList<Double> weights) {
         this.weights = weights;
         Random rng = new Random();
-        scalingRate = rng.nextDouble();
+        scalingRate = 0.03;//rng.nextDouble();
     }
     double distanceToInputVector(ArrayList<Double> in) {
         if(in.size() == weights.size()) {
