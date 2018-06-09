@@ -23,7 +23,7 @@ public class DrawPlot {
     }
 
     public static void draw(double[][] args1, double[][] args2) {
-        JavaPlot p = new JavaPlot("D:/Program Files/gnuplot/bin/gnuplot.exe");
+        JavaPlot p = new JavaPlot();
         PlotStyle style = new PlotStyle(Style.POINTS);
 
         PlotStyle style2 = new PlotStyle(Style.POINTS);
