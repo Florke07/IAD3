@@ -10,83 +10,12 @@ public class MyApp {
         System.out.println("Hello");
 
         ReadData reader = new ReadFromTXTWindows();
-        ArrayList<Double> list = new ArrayList<>();
-        list = reader.readDouble("data/approximation_train_2.txt");
-        ArrayList<Double> testData = reader.readDouble("data/approximation_test.txt");
-        ArrayList<Double> in = new ArrayList<>();
-        ArrayList<Double> exp = new ArrayList<>();
-        ArrayList<Double> out = new ArrayList<>();
+        ArrayList<Double> learData = new ArrayList<>();
+        learData = reader.readDouble("data/classification_train.txt");
+        ArrayList<Double> testData = reader.readDouble("data/classification_test.txt");
 
-        double[][] funkcja = new double[1000][2];
-        double[][] wynik = new double[1000][2];
-        int k=0;
-        for (int i =0;i<testData.size();i+=2) {
-            funkcja[k][0] = testData.get(i);
-            funkcja[k][1] = testData.get(i+1);
-            k++;
+        for (Double d: learData) {
+            System.out.println(d);
         }
-       // DrawPlot.draw(funkcja);
-        int iloscEpokR=100;
-        int iloscEpokMLP = 1000;
-        RBFNetwork RBF = new RBFNetwork(list,20,1,1,iloscEpokR);
-        int g;
-        for (int o=0;o<iloscEpokR;o++) {
-            g=0;
-            for (int i = 0; i < list.size(); i += 2) {
-
-                in.clear();
-                exp.clear();
-                in.add(list.get(i));
-                exp.add(list.get(i + 1));
-
-                //out = RBF.feedForward(in);
-
-                /*System.out.println("Przed learnem");
-                for (Double j : out) {
-                    System.out.println(j);
-                }*/
-
-                /*System.out.println("Oczekiwana");
-                for (Double j : exp) {
-                    System.out.println(j);
-                }*/
-
-                RBF.learnRadiallayer(in);
-
-                //out = RBF.feedForward(in);
-
-                /*System.out.println("po learnie");
-                for (Double j : out) {
-                    System.out.println(j);
-                }*/
-                //wynik[g][0] = in.get(0);
-                //wynik[g][1] = out.get(0);
-                //g++;
-            }
-            RBF.radialLayer.wiek++;
-        }
-        for(int e =0;e<iloscEpokMLP;e++){
-            for (int i = 0; i < list.size(); i += 2) {
-
-                in.clear();
-                exp.clear();
-                in.add(list.get(i));
-                exp.add(list.get(i + 1));
-                RBF.learnMLPLayer(in,exp);
-            }
-        }
-
-
-        g=0;
-        for (int i=0;i<testData.size();i+=2) {
-            in.clear();
-            in.add(testData.get(i));
-            out = RBF.feedForward(in);
-
-            wynik[g][0]=in.get(0);
-            wynik[g][1]=out.get(0);
-            g++;
-        }
-        DrawPlot.draw(funkcja,wynik);
     }
 }
