@@ -5,9 +5,12 @@ import activationFunctions.ActivationFunction;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class RadialNeuron {
+public class RadialNeuron implements Comparable<RadialNeuron>{
     private double distance = 0;
     public double scalingRate;
+    public double learningRateMax = 0.5;
+    public double learningRate;
+    public double learningRateMin = 0.1;
     public ArrayList<Double> weights;
 
 
@@ -36,5 +39,13 @@ public class RadialNeuron {
         }
         tmp = Math.sqrt(tmp);
         return tmp;
+    }
+    @Override
+    public int compareTo(RadialNeuron o) {
+        if (this.distance < o.distance)
+            return -1;
+        else if (o.distance < this.distance)
+            return 1;
+        return 0;
     }
 }

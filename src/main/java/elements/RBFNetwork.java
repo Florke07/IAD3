@@ -13,13 +13,15 @@ public class RBFNetwork {
     public int numberOfNeuronsInRadialLayer;
     int sizeOfInputVectorForRadialLayer;
     int numberOfOutputs;
+    int iloscEpok;
 
-    public RBFNetwork(ArrayList<Double> inputs, int numberOfNeuronsInRadialLayer,int numberOfOutputs,int sizeOfInputVectorForRadialLayer) {
+    public RBFNetwork(ArrayList<Double> inputs, int numberOfNeuronsInRadialLayer,int numberOfOutputs,int sizeOfInputVectorForRadialLayer, int iloscEpok) {
         this.inputs = inputs;
+        this.iloscEpok = iloscEpok;
         this.sizeOfInputVectorForRadialLayer = sizeOfInputVectorForRadialLayer;
         this.numberOfOutputs = numberOfOutputs;
         this.numberOfNeuronsInRadialLayer = numberOfNeuronsInRadialLayer;
-        radialLayer = new RadialLayer(numberOfNeuronsInRadialLayer,inputs,sizeOfInputVectorForRadialLayer);
+        radialLayer = new RadialLayer(numberOfNeuronsInRadialLayer,inputs,sizeOfInputVectorForRadialLayer,iloscEpok);
         mlpLayer = new MLPLayer(numberOfNeuronsInRadialLayer,numberOfOutputs,new IdenityActivationFunction(),radialLayer);
     }
     public ArrayList<Double> feedForward(ArrayList<Double> in){
@@ -28,7 +30,7 @@ public class RBFNetwork {
         return lastOutput;
     }
     public void learn(ArrayList<Double> in,ArrayList<Double> expectedOutput){
-        ArrayList<Double> tmp = radialLayer.feedForward(in);
+        ArrayList<Double> tmp = radialLayer.learnRadialLayer(in);
         mlpLayer.learn(tmp,expectedOutput);
     }
 }
