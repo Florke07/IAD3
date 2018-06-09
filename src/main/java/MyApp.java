@@ -26,10 +26,11 @@ public class MyApp {
             k++;
         }
        // DrawPlot.draw(funkcja);
-        int iloscEpok=30;
-        RBFNetwork RBF = new RBFNetwork(list,20,1,1,iloscEpok);
+        int iloscEpokR=10000;
+        int iloscEpokMLP = 100000;
+        RBFNetwork RBF = new RBFNetwork(list,20,1,1,iloscEpokR);
         int g;
-        for (int o=0;o<iloscEpok;o++) {
+        for (int o=0;o<iloscEpokR;o++) {
             g=0;
             for (int i = 0; i < list.size(); i += 2) {
 
@@ -38,7 +39,7 @@ public class MyApp {
                 in.add(list.get(i));
                 exp.add(list.get(i + 1));
 
-                out = RBF.feedForward(in);
+                //out = RBF.feedForward(in);
 
                 /*System.out.println("Przed learnem");
                 for (Double j : out) {
@@ -50,9 +51,9 @@ public class MyApp {
                     System.out.println(j);
                 }*/
 
-                RBF.learn4(in, exp);
+                RBF.learnRadiallayer(in);
 
-                out = RBF.feedForward(in);
+                //out = RBF.feedForward(in);
 
                 /*System.out.println("po learnie");
                 for (Double j : out) {
@@ -64,6 +65,17 @@ public class MyApp {
             }
             RBF.radialLayer.wiek++;
         }
+        for(int e =0;e<iloscEpokMLP;e++){
+            for (int i = 0; i < list.size(); i += 2) {
+
+                in.clear();
+                exp.clear();
+                in.add(list.get(i));
+                exp.add(list.get(i + 1));
+                RBF.learnMLPLayer(in,exp);
+            }
+        }
+
 
         g=0;
         for (int i=0;i<testData.size();i+=2) {
