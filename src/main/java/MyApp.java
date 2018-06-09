@@ -61,6 +61,7 @@ public class MyApp {
                 //wynik[g][1] = out.get(0);
                 //g++;
             }
+            RBF.radialLayer.wiek++;
         }
 
         g=0;

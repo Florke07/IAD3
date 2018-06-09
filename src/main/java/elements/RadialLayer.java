@@ -19,6 +19,8 @@ public class RadialLayer {
 
     public RadialLayer(int numberOfNeurons, ArrayList<Double> AllInputs, int sizeOfInputVector,int iloscEpok) {
         Random rng = new Random();
+        lambdaMax = numberOfNeurons / 2;
+        lambdaMin = 0.01;
         this.sizeOfInputVector = sizeOfInputVector;
         ArrayList<Double> weightsForRadialNeurons = new ArrayList<>();
         this.numberOfNeurons = numberOfNeurons;
@@ -53,22 +55,23 @@ public class RadialLayer {
                 i.weights.set(j, (i.weights.get(j) + learningRateOdWieku(i) * funkcjaSasiedztwa(i) * (in.get(j) - i.weights.get(j))));
             }
         }
-        wiek++;
         return feedForward(in);
     }
 
     private double funkcjaSasiedztwa(RadialNeuron n) {
         double tmp = Math.exp(-radialNeurons.indexOf(n) / lambdaOdWieku());
-        //System.out.println(tmp);
+        System.out.println("Som:"+tmp);
         return tmp;
     }
 
     private double lambdaOdWieku() {
+        System.out.println("lambda:"+(lambdaMax * Math.pow((lambdaMin / lambdaMax), ((double) wiek / (double) wiekMax))));
         return lambdaMax * Math.pow((lambdaMin / lambdaMax), ((double) wiek / (double) wiekMax));
     }
 
     private double learningRateOdWieku(RadialNeuron n) {
         n.learningRate = n.learningRateMax * Math.pow((n.learningRateMin / n.learningRate), ((double) wiek / (double) wiekMax));
+        System.out.println("LearningRAte:"+n.learningRate);
         return n.learningRate;
     }
 
