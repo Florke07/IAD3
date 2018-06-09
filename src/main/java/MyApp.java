@@ -26,9 +26,10 @@ public class MyApp {
             k++;
         }
        // DrawPlot.draw(funkcja);
-        RBFNetwork RBF = new RBFNetwork(list,20,1,1,200);
+        int iloscEpok=30;
+        RBFNetwork RBF = new RBFNetwork(list,20,1,1,iloscEpok);
         int g;
-        for (int o=0;o<200;o++) {
+        for (int o=0;o<iloscEpok;o++) {
             g=0;
             for (int i = 0; i < list.size(); i += 2) {
 
@@ -49,7 +50,7 @@ public class MyApp {
                     System.out.println(j);
                 }*/
 
-                RBF.learn(in, exp);
+                RBF.learn4(in, exp);
 
                 out = RBF.feedForward(in);
 
