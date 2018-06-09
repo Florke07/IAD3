@@ -26,8 +26,8 @@ public class MyApp {
             k++;
         }
        // DrawPlot.draw(funkcja);
-        int iloscEpokR=10000;
-        int iloscEpokMLP = 100000;
+        int iloscEpokR=100;
+        int iloscEpokMLP = 1000;
         RBFNetwork RBF = new RBFNetwork(list,20,1,1,iloscEpokR);
         int g;
         for (int o=0;o<iloscEpokR;o++) {

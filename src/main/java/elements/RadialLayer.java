@@ -11,7 +11,8 @@ public class RadialLayer {
     public double lambdaMin;
     public int wiek = 0;
     private int wiekMax;
-    private double promienFunkcjiGaussowskiej =0.1;
+    private double scalingRate=0.2;
+    private double promienFunkcjiGaussowskiej =0.3;
     public ArrayList<Double> AllInputs;
     public ArrayList<Double> lastOutput = new ArrayList<>();
     public ArrayList<RadialNeuron> radialNeurons = new ArrayList<>();
@@ -41,7 +42,7 @@ public class RadialLayer {
     public ArrayList<Double> feedForward (ArrayList<Double> in){
         lastOutput.clear();
         for (RadialNeuron i:radialNeurons) {
-            lastOutput.add(gaussFunction(i.distanceToInputVector(in)*i.scalingRate));
+            lastOutput.add(gaussFunction(i.distanceToInputVector(in)*scalingRate));
             //System.out.println(gaussFunction(i.distanceToInputVector(in)*i.scalingRate));
             //System.out.println(i.distanceToInputVector(in)*i.scalingRate);
         }

@@ -7,7 +7,6 @@ import java.util.Random;
 
 public class RadialNeuron implements Comparable<RadialNeuron>{
     private double distance = 0;
-    public double scalingRate;
     public double learningRateMax = 0.5;
     public double learningRate = 0.5;
     public double learningRateMin = 0.03;
@@ -16,8 +15,6 @@ public class RadialNeuron implements Comparable<RadialNeuron>{
 
     public RadialNeuron(ArrayList<Double> weights) {
         this.weights = weights;
-        Random rng = new Random();
-        scalingRate = 0.03;//rng.nextDouble();
     }
     double distanceToInputVector(ArrayList<Double> in) {
         if(in.size() == weights.size()) {
