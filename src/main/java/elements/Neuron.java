@@ -1,6 +1,8 @@
 package elements;
 
 import activationFunctions.ActivationFunction;
+
+import java.util.ArrayList;
 import java.util.Random;
 
 class Neuron {
@@ -10,7 +12,7 @@ class Neuron {
     double biasWeight;
     double prevuisBiasDelta;
     Double[] previusInputDelta;
-    Double[] input;
+    //ArrayList<Double> AllInputs;
     Double[] weight;
 
     private int numbersOfInputs;
@@ -21,7 +23,7 @@ class Neuron {
         this.function = function;
         this.numbersOfInputs = numbersOfInputs;
         this.isBias = isBias;
-        input = new Double[numbersOfInputs];
+        //this.AllInputs = AllInputs;
         weight = new Double[numbersOfInputs];
         previusInputDelta = new Double[numbersOfInputs];
         prevuisBiasDelta = 0;
@@ -39,19 +41,21 @@ class Neuron {
 
     }
 
-    void output() {
-        calculate();
+    Double output(ArrayList<Double> inputs) {
+        calculate(inputs);
         neuronResult = function.Value(adderResult);
+        return neuronResult;
     }
 
-    private void calculate() {
+    private void calculate(ArrayList<Double> inputs) {
         adderResult = 0;
 
         for (int i = 0; i < numbersOfInputs; i++) {
-            adderResult += input[i] * weight[i];
+            adderResult += inputs.get(i) * weight[i];
         }
         if (isBias) {
             adderResult += (1 * biasWeight);
         }
     }
+
 }
