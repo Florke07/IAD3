@@ -86,7 +86,11 @@ public class MyApp {
             in.add(testData.get(i+2));
             in.add(testData.get(i+3));
             out = RBF.feedForward(in);
-            System.out.print("Oczekiwano: "+testData.get(i+4)+"   Otrzymano: "+df2.format(out.get(0))+ "     Błąd: "+df.format(Math.abs(testData.get(i+4)-out.get(0)))+"\n");
+            double d1 = testData.get(i+4);
+            double d2 = out.get(0);
+            double d3 = Math.abs(testData.get(i+4)-out.get(0));
+            double d4 = (d3/d2)*100;
+            System.out.print("Oczekiwano: "+d1+"   Otrzymano: "+df2.format(d2)+ "     Błąd: "+df.format(d3)+"   "+df.format(d4)+"%\n");
             //System.out.println("Otrzymano: "+out.get(0));
             oczekiwana[k][0]=k;
             oczekiwana[k][1]=testData.get(i+4);
