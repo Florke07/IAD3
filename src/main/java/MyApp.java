@@ -11,7 +11,7 @@ public class MyApp {
 
         ReadData reader = new ReadFromTXTWindows();
         ArrayList<Double> list = new ArrayList<>();
-        list = reader.readDouble("data/approximation_train_2.txt");
+        list = reader.readDouble("data/approximation_train_1.txt");
         ArrayList<Double> testData = reader.readDouble("data/approximation_test.txt");
         ArrayList<Double> in = new ArrayList<>();
         ArrayList<Double> exp = new ArrayList<>();
@@ -30,41 +30,7 @@ public class MyApp {
         int iloscEpokMLP = 1000;
         RBFNetwork RBF = new RBFNetwork(list,20,1,1,iloscEpokR);
         int g;
-        for (int o=0;o<iloscEpokR;o++) {
-            g=0;
-            for (int i = 0; i < list.size(); i += 2) {
 
-                in.clear();
-                exp.clear();
-                in.add(list.get(i));
-                exp.add(list.get(i + 1));
-
-                //out = RBF.feedForward(in);
-
-                /*System.out.println("Przed learnem");
-                for (Double j : out) {
-                    System.out.println(j);
-                }*/
-
-                /*System.out.println("Oczekiwana");
-                for (Double j : exp) {
-                    System.out.println(j);
-                }*/
-
-                RBF.learnRadiallayer(in);
-
-                //out = RBF.feedForward(in);
-
-                /*System.out.println("po learnie");
-                for (Double j : out) {
-                    System.out.println(j);
-                }*/
-                //wynik[g][0] = in.get(0);
-                //wynik[g][1] = out.get(0);
-                //g++;
-            }
-            RBF.radialLayer.wiek++;
-        }
         for(int e =0;e<iloscEpokMLP;e++){
             for (int i = 0; i < list.size(); i += 2) {
 
