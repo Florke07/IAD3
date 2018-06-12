@@ -1,7 +1,6 @@
 package elements;
 
 import activationFunctions.IdenityActivationFunction;
-import activationFunctions.RadialActivationFunction;
 
 import java.util.ArrayList;
 

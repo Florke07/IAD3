@@ -35,29 +35,9 @@ public class MyApp {
                 in.add(list.get(i+3));
                 exp.add(list.get(i + 4));
 
-                //out = RBF.feedForward(in);
-
-                /*System.out.println("Przed learnem");
-                for (Double j : out) {
-                    System.out.println(j);
-                }*/
-
-                /*System.out.println("Oczekiwana");
-                for (Double j : exp) {
-                    System.out.println(j);
-                }*/
 
                 RBF.learnRadiallayer(in);
 
-                //out = RBF.feedForward(in);
-
-                /*System.out.println("po learnie");
-                for (Double j : out) {
-                    System.out.println(j);
-                }*/
-                //wynik[g][0] = in.get(0);
-                //wynik[g][1] = out.get(0);
-                //g++;
             }
             RBF.radialLayer.wiek++;
         }
@@ -93,7 +73,7 @@ public class MyApp {
             double d4 = (d3/d2)*100;
             System.out.print("Oczekiwano: "+d1+"   Otrzymano: "+df2.format(d2)+ "     Błąd: "+df.format(d3)+"   "+df.format(d4)+"%\n");
             srBld+=d3;
-            //System.out.println("Otrzymano: "+out.get(0));
+
             oczekiwana[k][0]=k;
             oczekiwana[k][1]=testData.get(i+4);
             otrzymana[k][1]=out.get(0);
@@ -102,6 +82,6 @@ public class MyApp {
         }
         srBld/=93;
         System.out.println("średni błąd: "+srBld);
-        DrawPlot.draw(oczekiwana,otrzymana);
+        //DrawPlot.draw(oczekiwana,otrzymana);
     }
 }
